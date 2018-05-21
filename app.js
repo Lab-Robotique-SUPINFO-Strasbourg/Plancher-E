@@ -57,54 +57,47 @@ board.on('ready', function() {
         pin: 9
     });
 
-    frontProximity.on('data', function() {
-        console.log('frontProximity : ', this.cm,' cm');
+    io.on('connection', function (socket) {
+        console.log("Socket connected");
+
+        frontProximity.on('change', function() {
+            console.log('frontProximity : ', this.cm,' cm');
+            socket.emit('frontProximity', this.cm);
+        });
+        backProximity.on('change', function() {
+            console.log('backProximity : ', this.cm,' cm');
+            socket.emit('backProximity', this.cm);
+        });
+
+        socket.on('gaz', function (data) {
+            console.log(`gaz : speed = ${data.speed}, direction = ${data.direction}`);
+            if (data.direction > 0) {
+                rightMotor.forward(data.speed);
+                leftMotor.forward(data.speed);
+
+            } else if (data.direction < 0) {
+                rightMotor.reverse(data.speed);
+                leftMotor.reverse(data.speed);
+            } else {
+                rightMotor.stop();
+                leftMotor.stop();
+            }
+        });
+
+        socket.on('direction', function (data) {
+            console.log(`direction : speed = ${data.speed}, direction = ${data.direction}`);
+            if (data.direction > 0) {
+                rightMotor.reverse(data.speed);
+                leftMotor.forward(data.speed);
+
+            } else if (data.direction < 0) {
+                rightMotor.forward(data.speed);
+                leftMotor.reverse(data.speed);
+            } else {
+                rightMotor.stop();
+                leftMotor.stop();
+            }
+        });
+
     });
-    backProximity.on('data', function() {
-        console.log('backProximity : ', this.cm,' cm');
-    });
-
-
-
-/*
-    board.repl.inject({
-        rightMotor: rightMotor,
-        leftMotor: leftMotor
-    });
-*/
-});
-
-io.on('connection', function (socket) {
-    console.log(socket.id);
-
-    socket.on('gaz', function (data) {
-        console.log(`gaz : speed = ${data.speed}, direction = ${data.direction}`);
-        if (data.direction > 0) {
-            rightMotor.forward(data.speed);
-            leftMotor.forward(data.speed);
-
-        } else if (data.direction < 0) {
-            rightMotor.reverse(data.speed);
-            leftMotor.reverse(data.speed);
-        } else {
-            rightMotor.stop();
-            leftMotor.stop();
-        }
-    });
-
-    socket.on('direction', function (data) {
-        console.log(`direction : speed = ${data.speed}, direction = ${data.direction}`);
-        if (data.direction > 0) {
-            rightMotor.reverse(data.speed);
-            leftMotor.forward(data.speed);
-
-        } else if (data.direction < 0) {
-            rightMotor.forward(data.speed);
-            leftMotor.reverse(data.speed);
-        } else {
-            rightMotor.stop();
-            leftMotor.stop();
-        }
-    });
-
 });
