@@ -35,8 +35,8 @@ board.on('ready', function() {
 
     rightMotor = new five.Motor({
         pins: {
-            pwm: 3,
-            dir: 2
+            pwm: 2,
+            dir: 3
         }
     });
 
@@ -71,14 +71,16 @@ board.on('ready', function() {
 
         socket.on('gaz', function (data) {
             console.log(`gaz : speed = ${data.speed}, direction = ${data.direction}`);
-            if (data.direction > 0) {
+            if (data.direction < 0) {
                 rightMotor.forward(data.speed);
                 leftMotor.forward(data.speed);
 
-            } else if (data.direction < 0) {
+            } else if (data.direction > 0) {
                 rightMotor.reverse(data.speed);
                 leftMotor.reverse(data.speed);
             } else {
+                rightMotor.reverse(0);
+                leftMotor.reverse(0);
                 rightMotor.stop();
                 leftMotor.stop();
             }
@@ -86,14 +88,16 @@ board.on('ready', function() {
 
         socket.on('direction', function (data) {
             console.log(`direction : speed = ${data.speed}, direction = ${data.direction}`);
-            if (data.direction > 0) {
+            if (data.direction < 0) {
                 rightMotor.reverse(data.speed);
                 leftMotor.forward(data.speed);
 
-            } else if (data.direction < 0) {
+            } else if (data.direction > 0) {
                 rightMotor.forward(data.speed);
                 leftMotor.reverse(data.speed);
             } else {
+                rightMotor.reverse(0);
+                leftMotor.reverse(0);
                 rightMotor.stop();
                 leftMotor.stop();
             }
