@@ -90,10 +90,10 @@ board.on('ready', function() {
             console.log(`direction : speed = ${data.speed}, direction = ${data.direction}`);
             if (data.direction < 0) {
                 rightMotor.reverse(data.speed);
-                leftMotor.forward(data.speed);
+                leftMotor.forward(255-data.speed);
 
             } else if (data.direction > 0) {
-                rightMotor.forward(data.speed);
+                rightMotor.forward(255-data.speed);
                 leftMotor.reverse(data.speed);
             } else {
                 rightMotor.reverse(0);
