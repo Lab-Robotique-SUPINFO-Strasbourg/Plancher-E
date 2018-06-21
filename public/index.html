@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Express</title>
+  <title>Plancher-E panel</title>
   <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 
@@ -10,9 +10,24 @@
 <script src="javascripts/socket.io.js"></script>
 <script src="javascripts/control.js"></script>
 
-<h1 id="frontProximity"></h1>
-<h1 id="backProximity"></h1>
-<img id=webcam src= "http://Plancher-E.local:8090/?action=stream" width="640" height="480" />
+<h1 id="principal">Plancher-E panel</h1>
+
+<div class="content">
+    <div class="content" id="video">
+        <h2>Retour vidéo</h2>
+      <img id=webcam src= "http://Plancher-E.local:8090/?action=stream" width="640" height="480" />
+    </div>
+    <div class="content" id="distance">
+        <div id="distance">
+            <h2>Distance à l'avant (cm)</h2>
+            <h3 id="frontProximity"></h3>
+        </div>
+        <div id="distance">
+            <h2>Distance à l'arrière (cm)</h2>
+            <h3 id="backProximity"></h3>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 
 </script>

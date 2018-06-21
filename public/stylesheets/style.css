@@ -1,8 +1,65 @@
 body {
   padding: 50px;
+  background-color: #222222;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+h1{
+  color: white;
+}
+
+h2{
+    color: white;
+}
+
+h3{
+  color: white;
+}
+
+h1#principal{
+  text-align: center;
 }
 
 a {
   color: #00B7FF;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    text-align: center;
+
+}
+
+.content#video{
+  width: 50%;
+    align-content: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+}
+
+.content#distance{
+    margin: 10px;
+
+}
+
+.content#backProximity{
+
+}
+
+.content#frontProximity{
+
+}
+
+#distance{
+    margin: 10px;
+}
+
+#webcam{
+    padding-top: 10px;
+    text-align: center;
 }
